@@ -5,8 +5,6 @@ package checkbook
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/stainless-sdks/checkbook-go/internal/apijson"
@@ -49,18 +47,6 @@ func (r *AccountWalletService) List(ctx context.Context, opts ...option.RequestO
 	opts = append(r.Options[:], opts...)
 	path := "v3/account/wallet"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
-}
-
-// Delete a wallet account
-func (r *AccountWalletService) Delete(ctx context.Context, walletID string, opts ...option.RequestOption) (res *AccountWalletDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
-	if walletID == "" {
-		err = errors.New("missing required wallet_id parameter")
-		return
-	}
-	path := fmt.Sprintf("v3/account/wallet/%s", walletID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -160,8 +146,6 @@ func (r AccountWalletListResponse) RawJSON() string { return r.JSON.raw }
 func (r *AccountWalletListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
-
-type AccountWalletDeleteResponse = any
 
 type AccountWalletNewParams struct {
 	CreateWalletRequest CreateWalletRequestParam

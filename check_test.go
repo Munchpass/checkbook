@@ -139,7 +139,7 @@ func TestCheckNewMultiWithOptionalParams(t *testing.T) {
 	_, err := client.Check.NewMulti(context.TODO(), checkbook.CheckNewMultiParams{
 		CreateMultiCheck: checkbook.CreateMultiCheckParam{
 			Amount: 5.23,
-			Recipients: []checkbook.CreateMultiCheckRecipientParam{{
+			Recipients: []checkbook.MultiRecipientParam{{
 				Name:        "Widgets Inc.",
 				Recipient:   "testing@example.com",
 				EndorseOnly: checkbook.Bool(true),
@@ -203,7 +203,7 @@ func TestCheckNewPhysicalWithOptionalParams(t *testing.T) {
 		CreatePhysicalCheck: checkbook.CreatePhysicalCheckParam{
 			Amount: 5.23,
 			Name:   "Widgets Inc.",
-			Recipient: checkbook.CreatePhysicalCheckRecipientParam{
+			Recipient: checkbook.PhysicalCheckRecipientParam{
 				City:    "Anytown",
 				Line1:   "1234 N. 1st Street",
 				State:   "CA",
