@@ -129,13 +129,11 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#Number140416527981344">Number140416527981344</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletNewResponse">AccountWalletNewResponse</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletListResponse">AccountWalletListResponse</a>
-- <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletDeleteResponse">AccountWalletDeleteResponse</a>
 
 Methods:
 
 - <code title="put /v3/account/wallet">client.Account.Wallet.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletNewParams">AccountWalletNewParams</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletNewResponse">AccountWalletNewResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v3/account/wallet">client.Account.Wallet.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletListResponse">AccountWalletListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
-- <code title="delete /v3/account/wallet/{wallet_id}">client.Account.Wallet.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, walletID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#AccountWalletDeleteResponse">AccountWalletDeleteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ## Wire
 
@@ -159,6 +157,9 @@ Params Types:
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#CreateDigitalCheckParam">CreateDigitalCheckParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#CreateMultiCheckParam">CreateMultiCheckParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#CreatePhysicalCheckParam">CreatePhysicalCheckParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#DigitalRecipientParam">DigitalRecipientParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#MultiRecipientParam">MultiRecipientParam</a>
+- <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#PhysicalCheckRecipientParam">PhysicalCheckRecipientParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#PinParam">PinParam</a>
 - <a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go">checkbook</a>.<a href="https://pkg.go.dev/github.com/stainless-sdks/checkbook-go#RemittanceAdviceParam">RemittanceAdviceParam</a>
 

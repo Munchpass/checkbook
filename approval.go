@@ -214,8 +214,8 @@ func (r *CreateDigitalCheckParam) UnmarshalJSON(data []byte) error {
 //
 // Use [param.IsOmitted] to confirm if a field is set.
 type CreateDigitalCheckRecipientUnionParam struct {
-	OfString           param.Opt[string]                                 `json:",omitzero,inline"`
-	OfDigitalRecipient *CreateDigitalCheckRecipientDigitalRecipientParam `json:",omitzero,inline"`
+	OfString           param.Opt[string]      `json:",omitzero,inline"`
+	OfDigitalRecipient *DigitalRecipientParam `json:",omitzero,inline"`
 	paramUnion
 }
 
@@ -233,23 +233,6 @@ func (u *CreateDigitalCheckRecipientUnionParam) asAny() any {
 		return u.OfDigitalRecipient
 	}
 	return nil
-}
-
-// The property ID is required.
-type CreateDigitalCheckRecipientDigitalRecipientParam struct {
-	// Recipient ID
-	ID string `json:"id,required"`
-	// Recipient account
-	Account param.Opt[string] `json:"account,omitzero" format:"uuid"`
-	paramObj
-}
-
-func (r CreateDigitalCheckRecipientDigitalRecipientParam) MarshalJSON() (data []byte, err error) {
-	type shadow CreateDigitalCheckRecipientDigitalRecipientParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *CreateDigitalCheckRecipientDigitalRecipientParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
 }
 
 // Only one field can be non-zero.
@@ -307,7 +290,7 @@ type CreateMultiCheckParam struct {
 	// Payment amount
 	Amount float64 `json:"amount,required"`
 	// Recipients
-	Recipients []CreateMultiCheckRecipientParam `json:"recipients,omitzero,required"`
+	Recipients []MultiRecipientParam `json:"recipients,omitzero,required"`
 	// Optional description/memo for payment
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Debit account id for funds (if sender has multiple bank accounts)
@@ -329,25 +312,6 @@ func (r CreateMultiCheckParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *CreateMultiCheckParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The properties Name, Recipient are required.
-type CreateMultiCheckRecipientParam struct {
-	// Name of recipient
-	Name string `json:"name,required"`
-	// Email or text enabled phone number/id of recipient
-	Recipient   string          `json:"recipient,required"`
-	EndorseOnly param.Opt[bool] `json:"endorse_only,omitzero"`
-	Pin         PinParam        `json:"pin,omitzero"`
-	paramObj
-}
-
-func (r CreateMultiCheckRecipientParam) MarshalJSON() (data []byte, err error) {
-	type shadow CreateMultiCheckRecipientParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *CreateMultiCheckRecipientParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -406,8 +370,8 @@ type CreatePhysicalCheckParam struct {
 	// Payment amount
 	Amount float64 `json:"amount,required"`
 	// Name of recipient
-	Name      string                            `json:"name,required"`
-	Recipient CreatePhysicalCheckRecipientParam `json:"recipient,omitzero,required"`
+	Name      string                      `json:"name,required"`
+	Recipient PhysicalCheckRecipientParam `json:"recipient,omitzero,required"`
 	// Optional description/memo for payment
 	Description param.Opt[string] `json:"description,omitzero"`
 	// Debit account id for funds (if sender has multiple bank accounts)
@@ -429,33 +393,6 @@ func (r CreatePhysicalCheckParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *CreatePhysicalCheckParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The properties City, Line1, State, Zip are required.
-type CreatePhysicalCheckRecipientParam struct {
-	// City
-	City string `json:"city,required"`
-	// Line 1
-	Line1 string `json:"line_1,required"`
-	// State
-	State string `json:"state,required"`
-	// Zip/postal code
-	Zip string `json:"zip,required"`
-	// Country
-	Country param.Opt[string] `json:"country,omitzero"`
-	// Line 2
-	Line2 param.Opt[string] `json:"line_2,omitzero"`
-	// Name on envelope
-	Name param.Opt[string] `json:"name,omitzero"`
-	paramObj
-}
-
-func (r CreatePhysicalCheckRecipientParam) MarshalJSON() (data []byte, err error) {
-	type shadow CreatePhysicalCheckRecipientParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *CreatePhysicalCheckRecipientParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -542,6 +479,23 @@ func (u *CreatePhysicalCheckRemittanceAdviceUnionParam) asAny() any {
 		return &u.OfRemittanceAdvice
 	}
 	return nil
+}
+
+// The property ID is required.
+type DigitalRecipientParam struct {
+	// Recipient ID
+	ID string `json:"id,required"`
+	// Recipient account
+	Account param.Opt[string] `json:"account,omitzero" format:"uuid"`
+	paramObj
+}
+
+func (r DigitalRecipientParam) MarshalJSON() (data []byte, err error) {
+	type shadow DigitalRecipientParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *DigitalRecipientParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type Error struct {
@@ -868,6 +822,52 @@ func (u GetCheckRecipientUnion) AsCheckAddress() (v CheckAddress) {
 func (u GetCheckRecipientUnion) RawJSON() string { return u.JSON.raw }
 
 func (r *GetCheckRecipientUnion) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The properties Name, Recipient are required.
+type MultiRecipientParam struct {
+	// Name of recipient
+	Name string `json:"name,required"`
+	// Email or text enabled phone number/id of recipient
+	Recipient   string          `json:"recipient,required"`
+	EndorseOnly param.Opt[bool] `json:"endorse_only,omitzero"`
+	Pin         PinParam        `json:"pin,omitzero"`
+	paramObj
+}
+
+func (r MultiRecipientParam) MarshalJSON() (data []byte, err error) {
+	type shadow MultiRecipientParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *MultiRecipientParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The properties City, Line1, State, Zip are required.
+type PhysicalCheckRecipientParam struct {
+	// City
+	City string `json:"city,required"`
+	// Line 1
+	Line1 string `json:"line_1,required"`
+	// State
+	State string `json:"state,required"`
+	// Zip/postal code
+	Zip string `json:"zip,required"`
+	// Country
+	Country param.Opt[string] `json:"country,omitzero"`
+	// Line 2
+	Line2 param.Opt[string] `json:"line_2,omitzero"`
+	// Name on envelope
+	Name param.Opt[string] `json:"name,omitzero"`
+	paramObj
+}
+
+func (r PhysicalCheckRecipientParam) MarshalJSON() (data []byte, err error) {
+	type shadow PhysicalCheckRecipientParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *PhysicalCheckRecipientParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
