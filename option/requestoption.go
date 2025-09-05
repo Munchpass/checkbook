@@ -263,7 +263,7 @@ func WithRequestTimeout(dur time.Duration) RequestOption {
 // environment to be the "production" environment. An environment specifies which base URL
 // to use by default.
 func WithEnvironmentProduction() RequestOption {
-	return requestconfig.WithDefaultBaseURL("https://demo.checkbook.io/")
+	return requestconfig.WithDefaultBaseURL("https://api.checkbook.io/")
 }
 
 // WithEnvironmentSandbox returns a RequestOption that sets the current
@@ -271,13 +271,6 @@ func WithEnvironmentProduction() RequestOption {
 // to use by default.
 func WithEnvironmentSandbox() RequestOption {
 	return requestconfig.WithDefaultBaseURL("https://api.sandbox.checkbook.io/")
-}
-
-// WithEnvironmentEnvironment2 returns a RequestOption that sets the current
-// environment to be the "environment_2" environment. An environment specifies which base URL
-// to use by default.
-func WithEnvironmentEnvironment2() RequestOption {
-	return requestconfig.WithDefaultBaseURL("https://api.checkbook.io/")
 }
 
 // WithAPIKey returns a RequestOption that sets the client setting "api_key".

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2025-09-05)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/Munchpass/checkbook/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** proper prod url ([852ef45](https://github.com/Munchpass/checkbook/commit/852ef45d42120027b854e5ba672766fb4d879898))
+
 ## 0.1.0 (2025-09-05)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/Munchpass/checkbook/compare/v0.0.1...v0.1.0)
