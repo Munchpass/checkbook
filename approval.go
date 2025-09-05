@@ -498,24 +498,6 @@ func (r *DigitalRecipientParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type Error struct {
-	Message string `json:"message,required"`
-	Errors  any    `json:"errors"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Message     respjson.Field
-		Errors      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r Error) RawJSON() string { return r.JSON.raw }
-func (r *Error) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type GetApproval struct {
 	// Unique identifier for payment
 	ID string `json:"id,required"`
