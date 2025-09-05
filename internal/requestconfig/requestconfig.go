@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/checkbook-go/internal"
-	"github.com/stainless-sdks/checkbook-go/internal/apierror"
-	"github.com/stainless-sdks/checkbook-go/internal/apiform"
-	"github.com/stainless-sdks/checkbook-go/internal/apiquery"
+	"github.com/Munchpass/checkbook/internal"
+	"github.com/Munchpass/checkbook/internal/apierror"
+	"github.com/Munchpass/checkbook/internal/apiform"
+	"github.com/Munchpass/checkbook/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

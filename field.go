@@ -1,7 +1,7 @@
 package checkbook
 
 import (
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/packages/param"
 	"io"
 	"time"
 )

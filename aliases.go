@@ -3,8 +3,8 @@
 package checkbook
 
 import (
-	"github.com/stainless-sdks/checkbook-go/internal/apierror"
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/internal/apierror"
+	"github.com/Munchpass/checkbook/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

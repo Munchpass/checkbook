@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/checkbook-go"
-	"github.com/stainless-sdks/checkbook-go/internal/testutil"
-	"github.com/stainless-sdks/checkbook-go/option"
+	"github.com/Munchpass/checkbook"
+	"github.com/Munchpass/checkbook/internal/testutil"
+	"github.com/Munchpass/checkbook/option"
 )
 
 func TestAccountWireNewWithOptionalParams(t *testing.T) {

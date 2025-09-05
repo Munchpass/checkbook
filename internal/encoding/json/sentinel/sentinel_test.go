@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/checkbook-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/internal/encoding/json/sentinel"
+	"github.com/Munchpass/checkbook/packages/param"
 	"reflect"
 	"slices"
 	"testing"

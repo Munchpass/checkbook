@@ -3,8 +3,8 @@ package apijson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/checkbook-go/internal/apijson"
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/internal/apijson"
+	"github.com/Munchpass/checkbook/packages/param"
 	"reflect"
 	"testing"
 )
