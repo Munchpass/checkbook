@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/stainless-sdks/checkbook-go/internal/apijson"
-	"github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/internal/apijson"
+	"github.com/Munchpass/checkbook/packages/respjson"
 )
 
 // Error represents an error that originates from the API, i.e. when a request is

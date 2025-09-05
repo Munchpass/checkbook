@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/packages/param"
 )
 
 type Struct struct {

@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/checkbook-go"
-	"github.com/stainless-sdks/checkbook-go/internal/testutil"
-	"github.com/stainless-sdks/checkbook-go/option"
+	"github.com/Munchpass/checkbook"
+	"github.com/Munchpass/checkbook/internal/testutil"
+	"github.com/Munchpass/checkbook/option"
 )
 
 func TestSubscriptionGet(t *testing.T) {

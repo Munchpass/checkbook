@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/stainless-sdks/checkbook-go/packages/param"
+	"github.com/Munchpass/checkbook/packages/param"
 )
 
 var encoders sync.Map // map[reflect.Type]encoderFunc

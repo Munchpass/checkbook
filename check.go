@@ -11,13 +11,13 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/stainless-sdks/checkbook-go/internal/apijson"
-	"github.com/stainless-sdks/checkbook-go/internal/apiquery"
-	shimjson "github.com/stainless-sdks/checkbook-go/internal/encoding/json"
-	"github.com/stainless-sdks/checkbook-go/internal/requestconfig"
-	"github.com/stainless-sdks/checkbook-go/option"
-	"github.com/stainless-sdks/checkbook-go/packages/param"
-	"github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/internal/apijson"
+	"github.com/Munchpass/checkbook/internal/apiquery"
+	shimjson "github.com/Munchpass/checkbook/internal/encoding/json"
+	"github.com/Munchpass/checkbook/internal/requestconfig"
+	"github.com/Munchpass/checkbook/option"
+	"github.com/Munchpass/checkbook/packages/param"
+	"github.com/Munchpass/checkbook/packages/respjson"
 )
 
 // CheckService contains methods and other services that help with interacting with

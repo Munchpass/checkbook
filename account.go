@@ -3,7 +3,7 @@
 package checkbook
 
 import (
-	"github.com/stainless-sdks/checkbook-go/option"
+	"github.com/Munchpass/checkbook/option"
 )
 
 // AccountService contains methods and other services that help with interacting

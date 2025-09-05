@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/stainless-sdks/checkbook-go/internal/encoding/json/shims"
+	"github.com/Munchpass/checkbook/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )
