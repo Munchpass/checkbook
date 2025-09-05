@@ -55,7 +55,7 @@ import (
 func main() {
 	client := checkbook.NewClient(
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("CHECKBOOK_API_KEY")
-		option.WithEnvironmentSandbox(), // or option.WithEnvironmentProduction() | option.WithEnvironmentEnvironment2(); defaults to option.WithEnvironmentProduction()
+		option.WithEnvironmentSandbox(), // defaults to option.WithEnvironmentProduction()
 	)
 	banks, err := client.Account.Bank.List(context.TODO())
 	if err != nil {
