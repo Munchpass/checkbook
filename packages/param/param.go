@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/checkbook-go/internal/encoding/json/sentinel"
+	"github.com/Munchpass/checkbook/internal/encoding/json/sentinel"
 	"reflect"
 )
 

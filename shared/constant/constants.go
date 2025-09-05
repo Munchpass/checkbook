@@ -3,7 +3,7 @@
 package constant
 
 import (
-	shimjson "github.com/stainless-sdks/checkbook-go/internal/encoding/json"
+	shimjson "github.com/Munchpass/checkbook/internal/encoding/json"
 )
 
 type Constant[T any] interface {

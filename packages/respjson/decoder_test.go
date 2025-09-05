@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/checkbook-go/internal/apijson"
-	rj "github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/internal/apijson"
+	rj "github.com/Munchpass/checkbook/packages/respjson"
 	"reflect"
 	"testing"
 )

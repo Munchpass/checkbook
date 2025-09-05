@@ -3,7 +3,7 @@ package param
 import (
 	"encoding/json"
 	"fmt"
-	shimjson "github.com/stainless-sdks/checkbook-go/internal/encoding/json"
+	shimjson "github.com/Munchpass/checkbook/internal/encoding/json"
 	"time"
 )
 

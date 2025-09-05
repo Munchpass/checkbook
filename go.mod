@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/checkbook-go
+module github.com/Munchpass/checkbook
 
 go 1.21
 

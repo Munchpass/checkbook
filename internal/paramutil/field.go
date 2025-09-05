@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/stainless-sdks/checkbook-go/packages/param"
-	"github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/packages/param"
+	"github.com/Munchpass/checkbook/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {

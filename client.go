@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/stainless-sdks/checkbook-go/internal/requestconfig"
-	"github.com/stainless-sdks/checkbook-go/option"
+	"github.com/Munchpass/checkbook/internal/requestconfig"
+	"github.com/Munchpass/checkbook/option"
 )
 
 // Client creates a struct with services and top level methods that help with

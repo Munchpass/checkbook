@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/packages/respjson"
 	"reflect"
 )
 

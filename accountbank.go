@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/stainless-sdks/checkbook-go/internal/apijson"
-	"github.com/stainless-sdks/checkbook-go/internal/requestconfig"
-	"github.com/stainless-sdks/checkbook-go/option"
-	"github.com/stainless-sdks/checkbook-go/packages/param"
-	"github.com/stainless-sdks/checkbook-go/packages/respjson"
+	"github.com/Munchpass/checkbook/internal/apijson"
+	"github.com/Munchpass/checkbook/internal/requestconfig"
+	"github.com/Munchpass/checkbook/option"
+	"github.com/Munchpass/checkbook/packages/param"
+	"github.com/Munchpass/checkbook/packages/respjson"
 )
 
 // AccountBankService contains methods and other services that help with
