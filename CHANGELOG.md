@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 (2025-09-06)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/Munchpass/checkbook/compare/v0.2.0...v0.2.1)
+
+### Chores
+
+* **internal:** codegen related update ([a782efa](https://github.com/Munchpass/checkbook/commit/a782efa4f933c90c846dbc289edf18db97327b31))
+
 ## 0.2.0 (2025-09-05)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Munchpass/checkbook/compare/v0.1.0...v0.2.0)
