@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -43,7 +44,7 @@ func NewCheckService(opts ...option.RequestOption) (r CheckService) {
 
 // Get the specified payment
 func (r *CheckService) Get(ctx context.Context, checkID string, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -55,7 +56,7 @@ func (r *CheckService) Get(ctx context.Context, checkID string, opts ...option.R
 
 // Return the sent/received payments
 func (r *CheckService) List(ctx context.Context, query CheckListParams, opts ...option.RequestOption) (res *CheckListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/check"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -63,7 +64,7 @@ func (r *CheckService) List(ctx context.Context, query CheckListParams, opts ...
 
 // Create a digital payment
 func (r *CheckService) NewDigital(ctx context.Context, body CheckNewDigitalParams, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/check/digital"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -71,7 +72,7 @@ func (r *CheckService) NewDigital(ctx context.Context, body CheckNewDigitalParam
 
 // Create a new multi party payment
 func (r *CheckService) NewMulti(ctx context.Context, body CheckNewMultiParams, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/check/multi"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -79,7 +80,7 @@ func (r *CheckService) NewMulti(ctx context.Context, body CheckNewMultiParams, o
 
 // Create a new paper check
 func (r *CheckService) NewPhysical(ctx context.Context, body CheckNewPhysicalParams, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/check/physical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -87,7 +88,7 @@ func (r *CheckService) NewPhysical(ctx context.Context, body CheckNewPhysicalPar
 
 // Endorse a multi party payment
 func (r *CheckService) Endorse(ctx context.Context, checkID string, body CheckEndorseParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
@@ -100,7 +101,7 @@ func (r *CheckService) Endorse(ctx context.Context, checkID string, body CheckEn
 
 // Get the attachment for a payment
 func (r *CheckService) GetAttachment(ctx context.Context, checkID string, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -112,7 +113,7 @@ func (r *CheckService) GetAttachment(ctx context.Context, checkID string, opts .
 
 // Get details on a failed payment
 func (r *CheckService) GetFailDetails(ctx context.Context, checkID string, opts ...option.RequestOption) (res *CheckGetFailDetailsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -124,7 +125,7 @@ func (r *CheckService) GetFailDetails(ctx context.Context, checkID string, opts 
 
 // Get tracking details on a mailed check
 func (r *CheckService) GetTrackingDetails(ctx context.Context, checkID string, opts ...option.RequestOption) (res *CheckGetTrackingDetailsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -136,7 +137,7 @@ func (r *CheckService) GetTrackingDetails(ctx context.Context, checkID string, o
 
 // Get the verification code
 func (r *CheckService) GetVerificationCode(ctx context.Context, checkID string, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -148,7 +149,7 @@ func (r *CheckService) GetVerificationCode(ctx context.Context, checkID string, 
 
 // Resend payment notification
 func (r *CheckService) Notify(ctx context.Context, checkID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
@@ -161,7 +162,7 @@ func (r *CheckService) Notify(ctx context.Context, checkID string, opts ...optio
 
 // Preview a new payment
 func (r *CheckService) Preview(ctx context.Context, body CheckPreviewParams, opts ...option.RequestOption) (res *CheckPreviewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/check/preview"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -169,7 +170,7 @@ func (r *CheckService) Preview(ctx context.Context, body CheckPreviewParams, opt
 
 // Print a check
 func (r *CheckService) Print(ctx context.Context, checkID string, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -181,7 +182,7 @@ func (r *CheckService) Print(ctx context.Context, checkID string, opts ...option
 
 // Trigger a webhook notification on sandbox
 func (r *CheckService) TriggerWebhook(ctx context.Context, checkID string, body CheckTriggerWebhookParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
@@ -194,7 +195,7 @@ func (r *CheckService) TriggerWebhook(ctx context.Context, checkID string, body 
 
 // Void the specified payment
 func (r *CheckService) Void(ctx context.Context, checkID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")

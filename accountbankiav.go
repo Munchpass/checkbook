@@ -5,6 +5,7 @@ package checkbook
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewAccountBankIavService(opts ...option.RequestOption) (r AccountBankIavSer
 
 // Add a new bank account with instant account verification
 func (r *AccountBankIavService) New(ctx context.Context, body AccountBankIavNewParams, opts ...option.RequestOption) (res *AccountBankIavNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/bank/iav"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *AccountBankIavService) New(ctx context.Context, body AccountBankIavNewP
 
 // Retrieve the bank account(s) associated with the Plaid token
 func (r *AccountBankIavService) Plaid(ctx context.Context, body AccountBankIavPlaidParams, opts ...option.RequestOption) (res *AccountBankIavPlaidResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/bank/iav/plaid"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

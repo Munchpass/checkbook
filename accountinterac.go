@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewAccountInteracService(opts ...option.RequestOption) (r AccountInteracSer
 
 // Add a new Interac account for a user
 func (r *AccountInteracService) New(ctx context.Context, body AccountInteracNewParams, opts ...option.RequestOption) (res *InteracAccountResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/interac"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountInteracService) New(ctx context.Context, body AccountInteracNewP
 
 // Update an existing Interac account
 func (r *AccountInteracService) Update(ctx context.Context, interacID string, body AccountInteracUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if interacID == "" {
 		err = errors.New("missing required interac_id parameter")
@@ -57,7 +58,7 @@ func (r *AccountInteracService) Update(ctx context.Context, interacID string, bo
 
 // Return the Interac accounts of a user
 func (r *AccountInteracService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountInteracListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/interac"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *AccountInteracService) List(ctx context.Context, opts ...option.Request
 
 // Remove an existing Interac account
 func (r *AccountInteracService) Delete(ctx context.Context, interacID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if interacID == "" {
 		err = errors.New("missing required interac_id parameter")

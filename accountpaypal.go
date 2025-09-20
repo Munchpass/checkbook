@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewAccountPaypalService(opts ...option.RequestOption) (r AccountPaypalServi
 
 // Add a new Paypal account for a user
 func (r *AccountPaypalService) New(ctx context.Context, body AccountPaypalNewParams, opts ...option.RequestOption) (res *PaypalAccountResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/paypal"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountPaypalService) New(ctx context.Context, body AccountPaypalNewPar
 
 // Update an existing Paypal account
 func (r *AccountPaypalService) Update(ctx context.Context, paypalID string, body AccountPaypalUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if paypalID == "" {
 		err = errors.New("missing required paypal_id parameter")
@@ -57,7 +58,7 @@ func (r *AccountPaypalService) Update(ctx context.Context, paypalID string, body
 
 // Return the Paypal accounts of a user
 func (r *AccountPaypalService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountPaypalListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/paypal"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *AccountPaypalService) List(ctx context.Context, opts ...option.RequestO
 
 // Remove an existing PayPal account
 func (r *AccountPaypalService) Delete(ctx context.Context, paypalID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if paypalID == "" {
 		err = errors.New("missing required paypal_id parameter")

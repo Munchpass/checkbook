@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -41,7 +42,7 @@ func NewUserService(opts ...option.RequestOption) (r UserService) {
 
 // Create a new marketplace user
 func (r *UserService) New(ctx context.Context, body UserNewParams, opts ...option.RequestOption) (res *UserNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/user"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -49,7 +50,7 @@ func (r *UserService) New(ctx context.Context, body UserNewParams, opts ...optio
 
 // Get user information
 func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (res *UserGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/user"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -57,7 +58,7 @@ func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (re
 
 // Update existing user information
 func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "v3/user"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, nil, opts...)
@@ -66,7 +67,7 @@ func (r *UserService) Update(ctx context.Context, body UserUpdateParams, opts ..
 
 // Return the marketplace users
 func (r *UserService) List(ctx context.Context, query UserListParams, opts ...option.RequestOption) (res *UserListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/user/list"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -74,7 +75,7 @@ func (r *UserService) List(ctx context.Context, query UserListParams, opts ...op
 
 // Delete the marketplace user
 func (r *UserService) Delete(ctx context.Context, userID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if userID == "" {
 		err = errors.New("missing required user_id parameter")
@@ -87,7 +88,7 @@ func (r *UserService) Delete(ctx context.Context, userID string, opts ...option.
 
 // Add signature
 func (r *UserService) AddSignature(ctx context.Context, body UserAddSignatureParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "v3/user/signature"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)

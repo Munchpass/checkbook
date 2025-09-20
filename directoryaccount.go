@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewDirectoryAccountService(opts ...option.RequestOption) (r DirectoryAccoun
 
 // Remove a directory account
 func (r *DirectoryAccountService) Delete(ctx context.Context, accountID string, body DirectoryAccountDeleteParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if body.DirectoryID == "" {
 		err = errors.New("missing required directory_id parameter")
@@ -53,7 +54,7 @@ func (r *DirectoryAccountService) Delete(ctx context.Context, accountID string, 
 
 // Create a new directory bank account
 func (r *DirectoryAccountService) NewBank(ctx context.Context, directoryID string, body DirectoryAccountNewBankParams, opts ...option.RequestOption) (res *DirectoryAccountNewBankResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if directoryID == "" {
 		err = errors.New("missing required directory_id parameter")
 		return
@@ -65,7 +66,7 @@ func (r *DirectoryAccountService) NewBank(ctx context.Context, directoryID strin
 
 // Create a new directory card account
 func (r *DirectoryAccountService) NewCard(ctx context.Context, directoryID string, body DirectoryAccountNewCardParams, opts ...option.RequestOption) (res *DirectoryAccountNewCardResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if directoryID == "" {
 		err = errors.New("missing required directory_id parameter")
 		return

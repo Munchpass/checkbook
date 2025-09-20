@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewAccountCardService(opts ...option.RequestOption) (r AccountCardService) 
 
 // Add a new card
 func (r *AccountCardService) New(ctx context.Context, body AccountCardNewParams, opts ...option.RequestOption) (res *AccountCardNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountCardService) New(ctx context.Context, body AccountCardNewParams,
 
 // Update the specified card
 func (r *AccountCardService) Update(ctx context.Context, cardID string, body AccountCardUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if cardID == "" {
 		err = errors.New("missing required card_id parameter")
@@ -57,7 +58,7 @@ func (r *AccountCardService) Update(ctx context.Context, cardID string, body Acc
 
 // Return the cards
 func (r *AccountCardService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountCardListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/card"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *AccountCardService) List(ctx context.Context, opts ...option.RequestOpt
 
 // Remove the specified card
 func (r *AccountCardService) Delete(ctx context.Context, cardID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if cardID == "" {
 		err = errors.New("missing required card_id parameter")

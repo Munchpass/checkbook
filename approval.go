@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -41,7 +42,7 @@ func NewApprovalService(opts ...option.RequestOption) (r ApprovalService) {
 
 // Get the specified payment approval
 func (r *ApprovalService) Get(ctx context.Context, approvalID string, opts ...option.RequestOption) (res *GetApproval, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if approvalID == "" {
 		err = errors.New("missing required approval_id parameter")
 		return
@@ -53,7 +54,7 @@ func (r *ApprovalService) Get(ctx context.Context, approvalID string, opts ...op
 
 // Update the specified paynent approval
 func (r *ApprovalService) Update(ctx context.Context, approvalID string, body ApprovalUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if approvalID == "" {
 		err = errors.New("missing required approval_id parameter")
@@ -66,7 +67,7 @@ func (r *ApprovalService) Update(ctx context.Context, approvalID string, body Ap
 
 // Return approvals
 func (r *ApprovalService) List(ctx context.Context, query ApprovalListParams, opts ...option.RequestOption) (res *ApprovalListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/approval"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -74,7 +75,7 @@ func (r *ApprovalService) List(ctx context.Context, query ApprovalListParams, op
 
 // Cancel the specified check approval
 func (r *ApprovalService) Delete(ctx context.Context, approvalID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if approvalID == "" {
 		err = errors.New("missing required approval_id parameter")
@@ -87,7 +88,7 @@ func (r *ApprovalService) Delete(ctx context.Context, approvalID string, opts ..
 
 // Create a new approval digital payment
 func (r *ApprovalService) NewDigital(ctx context.Context, body ApprovalNewDigitalParams, opts ...option.RequestOption) (res *GetApproval, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/approval/digital"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -95,7 +96,7 @@ func (r *ApprovalService) NewDigital(ctx context.Context, body ApprovalNewDigita
 
 // Create a new multi-party payment approval
 func (r *ApprovalService) NewMulti(ctx context.Context, body ApprovalNewMultiParams, opts ...option.RequestOption) (res *GetApproval, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/approval/multi"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -103,7 +104,7 @@ func (r *ApprovalService) NewMulti(ctx context.Context, body ApprovalNewMultiPar
 
 // Create a new physical check approval
 func (r *ApprovalService) NewPhysical(ctx context.Context, body ApprovalNewPhysicalParams, opts ...option.RequestOption) (res *GetApproval, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/approval/physical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -111,7 +112,7 @@ func (r *ApprovalService) NewPhysical(ctx context.Context, body ApprovalNewPhysi
 
 // Create a live payment from an approval
 func (r *ApprovalService) Release(ctx context.Context, body ApprovalReleaseParams, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/approval/release"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -119,7 +120,7 @@ func (r *ApprovalService) Release(ctx context.Context, body ApprovalReleaseParam
 
 // Get the attachment for a payment approval
 func (r *ApprovalService) GetAttachment(ctx context.Context, approvalID string, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if approvalID == "" {
 		err = errors.New("missing required approval_id parameter")
 		return

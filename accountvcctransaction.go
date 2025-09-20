@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -39,7 +40,7 @@ func NewAccountVccTransactionService(opts ...option.RequestOption) (r AccountVcc
 
 // Get the requested transaction for the specified VCC
 func (r *AccountVccTransactionService) Get(ctx context.Context, transactionID string, query AccountVccTransactionGetParams, opts ...option.RequestOption) (res *Transaction, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if query.VccID == "" {
 		err = errors.New("missing required vcc_id parameter")
 		return
@@ -55,7 +56,7 @@ func (r *AccountVccTransactionService) Get(ctx context.Context, transactionID st
 
 // Get the transactions for the specified VCC
 func (r *AccountVccTransactionService) List(ctx context.Context, vccID string, query AccountVccTransactionListParams, opts ...option.RequestOption) (res *AccountVccTransactionListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vccID == "" {
 		err = errors.New("missing required vcc_id parameter")
 		return

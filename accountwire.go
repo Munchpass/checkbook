@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewAccountWireService(opts ...option.RequestOption) (r AccountWireService) 
 
 // Create a new wire account
 func (r *AccountWireService) New(ctx context.Context, body AccountWireNewParams, opts ...option.RequestOption) (res *WireAccountResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/wire"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountWireService) New(ctx context.Context, body AccountWireNewParams,
 
 // Update an existing wire account
 func (r *AccountWireService) Update(ctx context.Context, accountID string, body AccountWireUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if accountID == "" {
 		err = errors.New("missing required account_id parameter")
@@ -57,7 +58,7 @@ func (r *AccountWireService) Update(ctx context.Context, accountID string, body 
 
 // Return the wire accounts
 func (r *AccountWireService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountWireListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/wire"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *AccountWireService) List(ctx context.Context, opts ...option.RequestOpt
 
 // Remove an existing wire account
 func (r *AccountWireService) Delete(ctx context.Context, wireID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if wireID == "" {
 		err = errors.New("missing required wire_id parameter")
