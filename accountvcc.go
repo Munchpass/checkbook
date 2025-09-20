@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -39,7 +40,7 @@ func NewAccountVccService(opts ...option.RequestOption) (r AccountVccService) {
 
 // Add a new vcc
 func (r *AccountVccService) New(ctx context.Context, body AccountVccNewParams, opts ...option.RequestOption) (res *AccountVccNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/vcc"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -47,7 +48,7 @@ func (r *AccountVccService) New(ctx context.Context, body AccountVccNewParams, o
 
 // Update the specified vcc
 func (r *AccountVccService) Update(ctx context.Context, vccID string, body AccountVccUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if vccID == "" {
 		err = errors.New("missing required vcc_id parameter")
@@ -60,7 +61,7 @@ func (r *AccountVccService) Update(ctx context.Context, vccID string, body Accou
 
 // Return the virtual cards
 func (r *AccountVccService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountVccListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/vcc"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -68,7 +69,7 @@ func (r *AccountVccService) List(ctx context.Context, opts ...option.RequestOpti
 
 // Remove the specified vcc
 func (r *AccountVccService) Delete(ctx context.Context, vccID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if vccID == "" {
 		err = errors.New("missing required vcc_id parameter")

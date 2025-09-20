@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -39,7 +40,7 @@ func NewMailboxMailService(opts ...option.RequestOption) (r MailboxMailService) 
 
 // Get mailbox item
 func (r *MailboxMailService) Get(ctx context.Context, itemID string, query MailboxMailGetParams, opts ...option.RequestOption) (res *MailResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if query.MailboxID == "" {
 		err = errors.New("missing required mailbox_id parameter")
 		return
@@ -55,7 +56,7 @@ func (r *MailboxMailService) Get(ctx context.Context, itemID string, query Mailb
 
 // Get mailbox items
 func (r *MailboxMailService) List(ctx context.Context, mailboxID string, query MailboxMailListParams, opts ...option.RequestOption) (res *MailboxMailListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if mailboxID == "" {
 		err = errors.New("missing required mailbox_id parameter")
 		return
@@ -67,7 +68,7 @@ func (r *MailboxMailService) List(ctx context.Context, mailboxID string, query M
 
 // Get mailbox item
 func (r *MailboxMailService) GetAttachment(ctx context.Context, itemID string, query MailboxMailGetAttachmentParams, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if query.MailboxID == "" {
 		err = errors.New("missing required mailbox_id parameter")
 		return

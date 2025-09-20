@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/apiquery"
@@ -40,7 +41,7 @@ func NewDirectoryService(opts ...option.RequestOption) (r DirectoryService) {
 
 // Create a new directory item
 func (r *DirectoryService) New(ctx context.Context, body DirectoryNewParams, opts ...option.RequestOption) (res *CreateDirectoryResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/directory"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -48,7 +49,7 @@ func (r *DirectoryService) New(ctx context.Context, body DirectoryNewParams, opt
 
 // Return the directory entry
 func (r *DirectoryService) Get(ctx context.Context, query DirectoryGetParams, opts ...option.RequestOption) (res *DirectoryGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/directory"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -56,7 +57,7 @@ func (r *DirectoryService) Get(ctx context.Context, query DirectoryGetParams, op
 
 // Update a directory item
 func (r *DirectoryService) Update(ctx context.Context, directoryID string, body DirectoryUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if directoryID == "" {
 		err = errors.New("missing required directory_id parameter")
@@ -69,7 +70,7 @@ func (r *DirectoryService) Update(ctx context.Context, directoryID string, body 
 
 // Remove the directory item
 func (r *DirectoryService) Delete(ctx context.Context, directoryID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if directoryID == "" {
 		err = errors.New("missing required directory_id parameter")

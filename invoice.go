@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -39,7 +40,7 @@ func NewInvoiceService(opts ...option.RequestOption) (r InvoiceService) {
 
 // Create a new invoice
 func (r *InvoiceService) New(ctx context.Context, body InvoiceNewParams, opts ...option.RequestOption) (res *InvoiceNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/invoice"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -47,7 +48,7 @@ func (r *InvoiceService) New(ctx context.Context, body InvoiceNewParams, opts ..
 
 // Get the specified invoice
 func (r *InvoiceService) Get(ctx context.Context, invoiceID string, opts ...option.RequestOption) (res *GetInvoice, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if invoiceID == "" {
 		err = errors.New("missing required invoice_id parameter")
 		return
@@ -59,7 +60,7 @@ func (r *InvoiceService) Get(ctx context.Context, invoiceID string, opts ...opti
 
 // Get sent/received invoices
 func (r *InvoiceService) List(ctx context.Context, query InvoiceListParams, opts ...option.RequestOption) (res *InvoiceListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/invoice"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -67,7 +68,7 @@ func (r *InvoiceService) List(ctx context.Context, query InvoiceListParams, opts
 
 // Get the attachment for an invoice
 func (r *InvoiceService) GetAttachment(ctx context.Context, invoiceID string, opts ...option.RequestOption) (res *Error, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if invoiceID == "" {
 		err = errors.New("missing required invoice_id parameter")
 		return
@@ -79,7 +80,7 @@ func (r *InvoiceService) GetAttachment(ctx context.Context, invoiceID string, op
 
 // Pay an outstanding invoice
 func (r *InvoiceService) Pay(ctx context.Context, body InvoicePayParams, opts ...option.RequestOption) (res *InvoicePayResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/invoice/payment"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -87,7 +88,7 @@ func (r *InvoiceService) Pay(ctx context.Context, body InvoicePayParams, opts ..
 
 // Cancel the specified invoice
 func (r *InvoiceService) Void(ctx context.Context, invoiceID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if invoiceID == "" {
 		err = errors.New("missing required invoice_id parameter")

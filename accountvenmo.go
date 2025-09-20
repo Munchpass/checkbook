@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewAccountVenmoService(opts ...option.RequestOption) (r AccountVenmoService
 
 // Add a new Venmo account for a user
 func (r *AccountVenmoService) New(ctx context.Context, body AccountVenmoNewParams, opts ...option.RequestOption) (res *VenmoAccountResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/venmo"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountVenmoService) New(ctx context.Context, body AccountVenmoNewParam
 
 // Update an existing Venmo account
 func (r *AccountVenmoService) Update(ctx context.Context, venmoID string, body AccountVenmoUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if venmoID == "" {
 		err = errors.New("missing required venmo_id parameter")
@@ -57,7 +58,7 @@ func (r *AccountVenmoService) Update(ctx context.Context, venmoID string, body A
 
 // Return the Venmo accounts of a user
 func (r *AccountVenmoService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountVenmoListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/venmo"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *AccountVenmoService) List(ctx context.Context, opts ...option.RequestOp
 
 // Remove an existing Venmo account
 func (r *AccountVenmoService) Delete(ctx context.Context, venmoID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if venmoID == "" {
 		err = errors.New("missing required venmo_id parameter")

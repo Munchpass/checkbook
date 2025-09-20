@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -37,7 +38,7 @@ func NewUserAPIKeyService(opts ...option.RequestOption) (r UserAPIKeyService) {
 
 // Generate new API keys for the user
 func (r *UserAPIKeyService) New(ctx context.Context, body UserAPIKeyNewParams, opts ...option.RequestOption) (res *NewAPIKey, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/user/api_key"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *UserAPIKeyService) New(ctx context.Context, body UserAPIKeyNewParams, o
 
 // Return the API keys for the user
 func (r *UserAPIKeyService) Get(ctx context.Context, opts ...option.RequestOption) (res *UserAPIKeyGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/user/api_key"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -53,7 +54,7 @@ func (r *UserAPIKeyService) Get(ctx context.Context, opts ...option.RequestOptio
 
 // Delete API key for user
 func (r *UserAPIKeyService) Delete(ctx context.Context, keyID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if keyID == "" {
 		err = errors.New("missing required key_id parameter")
