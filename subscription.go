@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -40,7 +41,7 @@ func NewSubscriptionService(opts ...option.RequestOption) (r SubscriptionService
 
 // Get the specified subscription
 func (r *SubscriptionService) Get(ctx context.Context, subscriptionID string, opts ...option.RequestOption) (res *GetSubscriptionResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscription_id parameter")
 		return
@@ -52,7 +53,7 @@ func (r *SubscriptionService) Get(ctx context.Context, subscriptionID string, op
 
 // Update the specified subscription
 func (r *SubscriptionService) Update(ctx context.Context, subscriptionID string, body SubscriptionUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscription_id parameter")
@@ -65,7 +66,7 @@ func (r *SubscriptionService) Update(ctx context.Context, subscriptionID string,
 
 // Return the subscriptions
 func (r *SubscriptionService) List(ctx context.Context, query SubscriptionListParams, opts ...option.RequestOption) (res *SubscriptionListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/subscription"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
@@ -73,7 +74,7 @@ func (r *SubscriptionService) List(ctx context.Context, query SubscriptionListPa
 
 // Remove the specified subscription
 func (r *SubscriptionService) Delete(ctx context.Context, subscriptionID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if subscriptionID == "" {
 		err = errors.New("missing required subscription_id parameter")
@@ -86,7 +87,7 @@ func (r *SubscriptionService) Delete(ctx context.Context, subscriptionID string,
 
 // Create a new invoice subscription
 func (r *SubscriptionService) NewInvoice(ctx context.Context, body SubscriptionNewInvoiceParams, opts ...option.RequestOption) (res *CreateSubscriptionResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/subscription/invoice"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -94,7 +95,7 @@ func (r *SubscriptionService) NewInvoice(ctx context.Context, body SubscriptionN
 
 // Create a new payment subscription
 func (r *SubscriptionService) NewPayment(ctx context.Context, body SubscriptionNewPaymentParams, opts ...option.RequestOption) (res *CreateSubscriptionResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/subscription/check"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

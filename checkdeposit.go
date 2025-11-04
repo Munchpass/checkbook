@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
@@ -37,7 +38,7 @@ func NewCheckDepositService(opts ...option.RequestOption) (r CheckDepositService
 
 // Deposit a payment
 func (r *CheckDepositService) New(ctx context.Context, checkID string, body CheckDepositNewParams, opts ...option.RequestOption) (res *GetCheck, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return
@@ -49,7 +50,7 @@ func (r *CheckDepositService) New(ctx context.Context, checkID string, body Chec
 
 // Get details on a deposited payment
 func (r *CheckDepositService) Get(ctx context.Context, checkID string, opts ...option.RequestOption) (res *CheckDepositGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if checkID == "" {
 		err = errors.New("missing required check_id parameter")
 		return

@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	shimjson "github.com/Munchpass/checkbook/internal/encoding/json"
@@ -36,7 +37,7 @@ func NewAccountWalletService(opts ...option.RequestOption) (r AccountWalletServi
 
 // Update wallet
 func (r *AccountWalletService) New(ctx context.Context, body AccountWalletNewParams, opts ...option.RequestOption) (res *AccountWalletNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/wallet"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
 	return
@@ -44,7 +45,7 @@ func (r *AccountWalletService) New(ctx context.Context, body AccountWalletNewPar
 
 // Get wallet accounts for user
 func (r *AccountWalletService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountWalletListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/wallet"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

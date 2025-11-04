@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/apiquery"
@@ -40,7 +41,7 @@ func NewMailboxService(opts ...option.RequestOption) (r MailboxService) {
 
 // Create a new mailbox
 func (r *MailboxService) New(ctx context.Context, opts ...option.RequestOption) (res *CreateMailboxResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/mailbox"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
@@ -48,7 +49,7 @@ func (r *MailboxService) New(ctx context.Context, opts ...option.RequestOption) 
 
 // Get mailbox details
 func (r *MailboxService) Get(ctx context.Context, mailboxID string, opts ...option.RequestOption) (res *CreateMailboxResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if mailboxID == "" {
 		err = errors.New("missing required mailbox_id parameter")
 		return
@@ -60,7 +61,7 @@ func (r *MailboxService) Get(ctx context.Context, mailboxID string, opts ...opti
 
 // Return the mailboxes for the current user
 func (r *MailboxService) List(ctx context.Context, query MailboxListParams, opts ...option.RequestOption) (res *MailboxListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/mailbox"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return

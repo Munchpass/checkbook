@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/Munchpass/checkbook/internal/apijson"
 	"github.com/Munchpass/checkbook/internal/requestconfig"
@@ -38,7 +39,7 @@ func NewAccountBankService(opts ...option.RequestOption) (r AccountBankService) 
 
 // Add a new bank account
 func (r *AccountBankService) New(ctx context.Context, body AccountBankNewParams, opts ...option.RequestOption) (res *AccountBankNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/bank"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *AccountBankService) New(ctx context.Context, body AccountBankNewParams,
 
 // Update an existing bank account
 func (r *AccountBankService) Update(ctx context.Context, bankID string, body AccountBankUpdateParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if bankID == "" {
 		err = errors.New("missing required bank_id parameter")
@@ -59,7 +60,7 @@ func (r *AccountBankService) Update(ctx context.Context, bankID string, body Acc
 
 // Get the bank accounts for a user
 func (r *AccountBankService) List(ctx context.Context, opts ...option.RequestOption) (res *AccountBankListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/bank"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -67,7 +68,7 @@ func (r *AccountBankService) List(ctx context.Context, opts ...option.RequestOpt
 
 // Remove the specified bank account
 func (r *AccountBankService) Delete(ctx context.Context, bankID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if bankID == "" {
 		err = errors.New("missing required bank_id parameter")
@@ -80,7 +81,7 @@ func (r *AccountBankService) Delete(ctx context.Context, bankID string, opts ...
 
 // Release the micro-deposits for a bank account
 func (r *AccountBankService) Release(ctx context.Context, body AccountBankReleaseParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "v3/account/bank/release"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
@@ -89,7 +90,7 @@ func (r *AccountBankService) Release(ctx context.Context, body AccountBankReleas
 
 // Return a list of our supported institutions for instant account verification
 func (r *AccountBankService) GetInstitutions(ctx context.Context, opts ...option.RequestOption) (res *AccountBankGetInstitutionsResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v3/account/bank/institutions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -97,7 +98,7 @@ func (r *AccountBankService) GetInstitutions(ctx context.Context, opts ...option
 
 // Verify the micro-deposits for a bank account
 func (r *AccountBankService) Verify(ctx context.Context, body AccountBankVerifyParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := "v3/account/bank/verify"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
