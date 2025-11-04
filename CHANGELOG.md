@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.2.1 (2025-11-04)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/Munchpass/checkbook/compare/v0.2.0...v0.2.1)
+
+### Bug Fixes
+
+* bugfix for setting JSON keys with special characters ([0a6b6da](https://github.com/Munchpass/checkbook/commit/0a6b6da4e7ebfbdf7ec4795cadfe1c9f0b5c04ae))
+* use slices.Concat instead of sometimes modifying r.Options ([c73bccf](https://github.com/Munchpass/checkbook/commit/c73bccf25d2357526c49fbdccad07ee5da9c70b7))
+
+
+### Chores
+
+* bump minimum go version to 1.22 ([d744de6](https://github.com/Munchpass/checkbook/commit/d744de6d7d132a63d75851df6d332b15798c4882))
+* do not install brew dependencies in ./scripts/bootstrap by default ([e90cb19](https://github.com/Munchpass/checkbook/commit/e90cb1978646d52cdccbc8c42fa8c9e7c7160b14))
+* **internal:** codegen related update ([a782efa](https://github.com/Munchpass/checkbook/commit/a782efa4f933c90c846dbc289edf18db97327b31))
+* **internal:** grammar fix (it's -&gt; its) ([5bdac52](https://github.com/Munchpass/checkbook/commit/5bdac522c3e3a76a34808a5e94de1c09c6d3ccd1))
+* update more docs for 1.22 ([b37ee7a](https://github.com/Munchpass/checkbook/commit/b37ee7a270ba115331498b2287ee056585e48ed3))
+
 ## 0.2.0 (2025-09-05)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Munchpass/checkbook/compare/v0.1.0...v0.2.0)
